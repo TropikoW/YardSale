@@ -8,8 +8,6 @@ const mobileMenu = document.querySelector('#mobile-menu');
 const productDetails = document.querySelector('#product-details');
 
 const productList = [];
-// let injet;
-// let variousProduct;
 
 class NewProducts{
     constructor(name,price,photo,description){
@@ -48,28 +46,6 @@ function showDetailsProduct() {
     productDetails.classList.toggle('inactive');
     showDetailsProducts();
 };
-// function showCards() {
-//     productList.forEach((product)=>{
-//         variousProduct = `
-//         <div id="product-card" class="product-card">
-//         <img src="${product.photo}" alt="">
-//         <div class="product-info">
-//           <div>
-//             <p>$${product.price}</p>
-//             <p>${product.name}</p>
-//           </div>
-//           <figure>
-//           <label for="${product.name}">
-//             <img src="./icons/bt_add_to_cart.svg" alt="">
-//           </label>
-//             <input class="inactive" type="radio" id="${product.name}">
-//           </figure>
-//         </div>
-//       </div>
-//       `;
-//         cardsContainer.innerHTML += variousProduct;
-//     });
-// }
 function showCards() {
     for(product of productList){
 
@@ -114,29 +90,6 @@ function showCards() {
         figure.appendChild(input);
     };
 };
-/* <img src="./icons/icon_close.png" alt="close">
-<img src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="bike">
-<div class="products-info">
-  <p>$35,00</p>
-  <p>Bike</p>
-  <p>With its practical position, this bike also fulfills a decorative function, add your hall or workspace.</p>
-  <button class="primary-button add-to-cart-button">
-    <img src="./icons/bt_add_to_cart.svg" alt="add to cart">
-    Add to cart
-  </button> */
-// function showDetailsProduct() {
-//     const imgProductDetails = document.createElement('img');
-//     imgProductDetails.setAttribute('src','./icons/icon_close.png');
-//     productDetailsClose.appendChild(imgProductDetails);
-        
-//     const imgProductProductDetails = document.createElement('img');
-//     imgProductProductDetails.setAttribute('src','https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
-//     productDetails.appendChild(imgProductProductDetails);
-    
-//     const productInfoProductDetails = document.createElement('div');
-//     productInfoProductDetails.classList.add('product-info');
-//     productDetails.appendChild(productInfoProductDetails);
-// };
 function showDetailsProducts() {
     productList.forEach((product)=>{
         let inject = `
