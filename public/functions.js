@@ -80,7 +80,7 @@ function showCards() {
         figure.appendChild(label);
 
         const icon = document.createElement('img');
-        icon.setAttribute('src','/public/icons/bt_add_to_cart.svg');
+        icon.setAttribute('src','./public/icons/bt_add_to_cart.svg');
         label.appendChild(icon);
 
         const input = document.createElement('input');
@@ -94,7 +94,7 @@ function showDetailsProducts() {
     productList.forEach((product)=>{
         let inject = `
         <div class="product-details-close">
-            <img id="product-details-close" src="/public/icons/icon_close.png" alt="close"> 
+            <img id="product-details-close" src="./public/icons/icon_close.png" alt="close"> 
         </div>
         <img src="${product.photo}" alt="bike">
         <div class="products-info">
@@ -102,7 +102,7 @@ function showDetailsProducts() {
             <p>${product.name}</p>
             <p>${product.description}</p>
         <button class="primary-button add-to-cart-button">
-            <img src="/public/icons/bt_add_to_cart.svg" alt="add to cart">
+            <img src="./public/icons/bt_add_to_cart.svg" alt="add to cart">
             Add to cart
         </button>
         </div> 
