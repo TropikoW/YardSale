@@ -86,6 +86,7 @@
     width: 360px;
     padding: 24px;
     position: absolute;
+    top: 62px;
     right: 0;
   }
   .title-container {
