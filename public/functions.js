@@ -47,7 +47,7 @@ function showDetailsProduct() {
     showDetailsProducts();
 };
 function showCards() {
-    for(product of productList){
+    for(const product of productList){
 
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
