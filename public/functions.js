@@ -6,6 +6,11 @@ const cardsContainer = document.querySelector('#cards-container');
 const menu = document.querySelector('#menu');
 const mobileMenu = document.querySelector('#mobile-menu');
 const productDetails = document.querySelector('#product-details');
+const productDetailsRigthAsideImg = document.querySelector('#product-details-rigth-aside-img');
+const productDetailsRigthAsidePrice = document.querySelector('#product-details-rigth-aside-price');
+const productDetailsRigthAsideName = document.querySelector('#product-details-rigth-aside-name');
+const productDetailsRigthAsideDescription = document.querySelector('#product-details-rigth-aside-description');
+const productDetailsClose = document.querySelector('#product-details-close');
 
 const productList = [];
 
@@ -18,16 +23,16 @@ class NewProducts{
     };
 };
 
-let bike = new NewProducts('bike',120,'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940','A bike with the best tools to cover any terrain');
+let bike = new NewProducts('Bike',120,'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940','A bike with the best tools to cover any terrain');
 let superBycicle = new NewProducts('Super Bycicle',250,'https://i.pinimg.com/564x/30/93/1d/30931d7db5773497aa6ba7c9971c8d4c.jpg','Super Bycicle is an great product!');
-
-let montainCycle = new NewProducts('montain Bycicle',240,'https://i.pinimg.com/564x/5c/13/14/5c131489b8abdf65559cd973039a9aa1.jpg','This is an great montain bycicle for youngs');
+let montainCycle = new NewProducts('Montain Bycicle',240,'https://i.pinimg.com/564x/5c/13/14/5c131489b8abdf65559cd973039a9aa1.jpg','This is an great montain bycicle for youngs');
 
 productList.push(bike,superBycicle,montainCycle);
 
 navbarShoppingCar.addEventListener('click',showAside);
 navbarEmail.addEventListener('click',showdesktopMenu);
 menu.addEventListener('click',showBurguer);
+productDetailsClose.addEventListener('click',closeProductDetails);
 
 function showAside() {
     producDetail.classList.toggle('inactive');
@@ -56,7 +61,11 @@ function showCards() {
         const img = document.createElement('img');
         img.setAttribute('src',product.photo);
         productCard.appendChild(img);
-        img.addEventListener('click',showDetailsProduct);
+        // img.addEventListener('click',showDetailsProduct);
+        img.addEventListener('click',function(){
+            showProductDetails();
+            showDetailsProducts(product.photo,product.price,product.name,product.description);
+        });
 
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
@@ -90,30 +99,52 @@ function showCards() {
         figure.appendChild(input);
     };
 };
-function showDetailsProducts() {
-    productList.forEach((product)=>{
-        let inject = `
-        <div class="product-details-close">
-            <img id="product-details-close" src="./public/icons/icon_close.png" alt="close"> 
-        </div>
-        <img src="${product.photo}" alt="bike">
-        <div class="products-info">
-            <p>$${product.price}</p>
-            <p>${product.name}</p>
-            <p>${product.description}</p>
-        <button class="primary-button add-to-cart-button">
-            <img src="./public/icons/bt_add_to_cart.svg" alt="add to cart">
-            Add to cart
-        </button>
-        </div> 
-        `;
-        productDetails.innerHTML=inject;
-        const productDetailsClose = document.querySelector('#product-details-close');
-        productDetailsClose.addEventListener('click',addInactive);
-        function addInactive() {
-            productDetails.classList.add('inactive');
-        };
-    });
+// <div id="product-details-close" class="product-details-close">
+// <img src="./public/icons/icon_close.png" src="" alt="close">
+// </div>
+// <img id="product-details-rigth-aside-img" alt="bike">
+// <div class="products-info">
+// <p id="product-details-rigth-aside-price"></p>
+// <p id="product-details-rigth-aside-name"></p>
+// <p id="product-details-rigth-aside-description"></p>
+// <button class="primary-button add-to-cart-button">
+//   <img src="./public/icons/bt_add_to_cart.svg" alt="add to cart">
+//   Add to cart
+// </button>
+// </div>
+// function injectProductDetails() {
+//     const productDetailsClose = document.createElement('div');
+//     productDetailsClose.classList.add(product-details-close);
+//     productDetails.appendChild(productDetailsClose);
+
+//     const imgProductDetailsClose = document.createElement('img')
+//     imgProductDetailsClose.setAttribute('src','./public/icons/icon_close.png');
+//     productDetailsClose.appendChild(imgProductDetailsClose);
+
+//     const imgProductDetails = document.createElement('img');
+//     imgProductDetails.classList.add('product-details-rigth-aside-img');
+//     productDetails.appendChild(imgProductDetails);
+
+//     const infoProductDetails = document.createElement('div');
+//     infoProductDetails.classList.add('products-info');
+//     const priceProductDetails = document.createElement('p');
+//     priceProductDetails.setAttribute('')
+// };
+function showProductDetails() {
+    if(productDetails.classList.contains('inactive') === productDetails.classList.contains('inactive')) {
+        productDetails.classList.remove('inactive');
+    } else {
+        return;
+    };
+};
+function showDetailsProducts(image,price,name,description) {
+    productDetailsRigthAsideImg.setAttribute('src',image);
+    productDetailsRigthAsidePrice.innerText = '$' + price;
+    productDetailsRigthAsideName.innerText = name;
+    productDetailsRigthAsideDescription.innerText = description;
+};
+function closeProductDetails() {
+    productDetails.classList.add('inactive');
 };
 
 window.addEventListener('load',showCards)
