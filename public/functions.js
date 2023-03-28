@@ -11,8 +11,12 @@ const productDetailsRigthAsidePrice = document.querySelector('#product-details-r
 const productDetailsRigthAsideName = document.querySelector('#product-details-rigth-aside-name');
 const productDetailsRigthAsideDescription = document.querySelector('#product-details-rigth-aside-description');
 const productDetailsClose = document.querySelector('#product-details-close');
+const containerListProduct = document.querySelector('#container-list-product');
+const totalValue = document.querySelector('#total-value');
+const productCounter = document.querySelector('#product-counter');
 
-const productList = [];
+let productList = [];
+let allProduct= [];
 
 class NewProducts{
     constructor(name,price,photo,description){
@@ -29,11 +33,61 @@ let montainCycle = new NewProducts('Montain Bycicle',240,'https://i.pinimg.com/5
 
 productList.push(bike,superBycicle,montainCycle);
 
+// events of click
 navbarShoppingCar.addEventListener('click',showAside);
 navbarEmail.addEventListener('click',showdesktopMenu);
 menu.addEventListener('click',showBurguer);
 productDetailsClose.addEventListener('click',closeProductDetails);
+cardsContainer.addEventListener('click', e=>{
+    if(e.target.classList.contains('btn-add-cart')) {
+        const productElement = e.target.parentElement.parentElement.parentElement.parentElement
 
+        const objetProduct = {
+            quantity : 1,
+            title : productElement.querySelector('h3').textContent,
+            price : productElement.querySelector('p').textContent,
+            image : productElement.querySelector('img').textContent,
+        };
+        // allProduct = [...allProduct,objetProduct];
+        console.log(objetProduct,allProduct,productElement.querySelector('img'));
+
+        const ifProduct = allProduct.some(product => product.title == objetProduct.title);
+
+        if(ifProduct) {
+            const validation = allProduct.map(product => {
+                if(product.title === objetProduct.title) {
+                    product.quantity++;
+                    return product;
+                } else {
+                    return product;
+                };
+            });
+            allProduct = [...validation];
+        } else {
+            allProduct = [...allProduct,objetProduct];
+        }
+
+        // console.log(ifProduct);
+        showHTML();
+        console.log('escuchando');
+    };
+});
+containerListProduct.addEventListener('click', (e) => {
+    if(e.target.classList.contains('icon-close')){
+        const product = e.target.parentElement;
+        const title = product.querySelector('h3').textContent;
+
+        allProduct = allProduct.filter(
+            product => product.title !== title
+        );
+        console.log(product,title,allProduct);
+        showHTML();
+    }
+});
+// cardsContainer.addEventListener('click', e => {
+//     console.log('Evento click activado para el elemento:', e.target);
+//     console.log('¿Tiene la clase "btn-add-cart"?', e.target.classList.contains('btn-add-cart'));
+//   });
 function showAside() {
     producDetail.classList.toggle('inactive');
     desktopMenu.classList.add('inactive');
@@ -75,9 +129,10 @@ function showCards() {
 
         const price = document.createElement('p');
         price.innerText = '$' + product.price;
+        price.setAttribute('class','price');
         frameDiv.appendChild(price);
 
-        const name = document.createElement('p');
+        const name = document.createElement('h3');
         name.innerText = product.name;
         frameDiv.appendChild(name);
 
@@ -90,13 +145,14 @@ function showCards() {
 
         const icon = document.createElement('img');
         icon.setAttribute('src','./public/icons/bt_add_to_cart.svg');
+        icon.setAttribute('class','btn-add-cart');
         label.appendChild(icon);
 
-        const input = document.createElement('input');
-        input.setAttribute('type','radio');
-        input.setAttribute('id',product.name);
-        input.classList.add('inactive');
-        figure.appendChild(input);
+        // const input = document.createElement('input');
+        // input.setAttribute('type','radio');
+        // input.setAttribute('id',product.name);
+        // input.classList.add('inactive');
+        // figure.appendChild(input);
     };
 };
 // <div id="product-details-close" class="product-details-close">
@@ -112,24 +168,6 @@ function showCards() {
 //   Add to cart
 // </button>
 // </div>
-// function injectProductDetails() {
-//     const productDetailsClose = document.createElement('div');
-//     productDetailsClose.classList.add(product-details-close);
-//     productDetails.appendChild(productDetailsClose);
-
-//     const imgProductDetailsClose = document.createElement('img')
-//     imgProductDetailsClose.setAttribute('src','./public/icons/icon_close.png');
-//     productDetailsClose.appendChild(imgProductDetailsClose);
-
-//     const imgProductDetails = document.createElement('img');
-//     imgProductDetails.classList.add('product-details-rigth-aside-img');
-//     productDetails.appendChild(imgProductDetails);
-
-//     const infoProductDetails = document.createElement('div');
-//     infoProductDetails.classList.add('products-info');
-//     const priceProductDetails = document.createElement('p');
-//     priceProductDetails.setAttribute('')
-// };
 function showProductDetails() {
     if(productDetails.classList.contains('inactive') === productDetails.classList.contains('inactive')) {
         productDetails.classList.remove('inactive');
@@ -145,6 +183,35 @@ function showDetailsProducts(image,price,name,description) {
 };
 function closeProductDetails() {
     productDetails.classList.add('inactive');
+};
+const showHTML = () => {
+
+    let total = 0;
+    let totalOfProduct = 0;
+
+    containerListProduct.innerHTML = '';
+
+    allProduct.forEach(product => {
+        const containerOnlyProduct = document.createElement('div');
+        containerOnlyProduct.classList.add('my-order-content');
+
+        containerOnlyProduct.innerHTML = `
+        <div class="shopping-cart">
+        <div>
+        <p>${product.quantity}</p>
+        </div>
+        <h3>${product.title}</h3>
+        <p>${product.price}</p>
+        <img src="./public/icons/icon_close.png" class="icon-close" alt="close">
+      </div>
+        `;
+        containerListProduct.appendChild(containerOnlyProduct);
+        total = total + parseInt(product.quantity * product.price.slice(1));
+        totalOfProduct = totalOfProduct + product.quantity;
+    });
+
+    totalValue.innerText = '$' + `${total}`;
+    productCounter.innerText = totalOfProduct;
 };
 
 window.addEventListener('load',showCards)
