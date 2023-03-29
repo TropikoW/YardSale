@@ -81,7 +81,7 @@ function addToBagTwo(e) {
         const productElement = e.target.parentElement;
         const objetProduct = {
             quantity : 1,
-            title : productElement.querySelector('p').textContent,
+            title : productElement.querySelector('span').textContent,
             price : productElement.querySelector('p').textContent,
             image : productElement.querySelector('img').textContent,
         };
@@ -109,9 +109,6 @@ function addToBagTwo(e) {
         console.log('sigue escuchando');
     };
 };
-// function addToBagTwo(e) {
-//     console.log(e.target.parentElement)
-// }
 // cardsContainer.addEventListener('click', e=>{
 //     if(e.target.classList.contains('btn-add-cart')) {
 //         const productElement = e.target.parentElement.parentElement.parentElement.parentElement
@@ -166,6 +163,7 @@ function showAside() {
     producDetail.classList.toggle('inactive');
     desktopMenu.classList.add('inactive');
     mobileMenu.classList.add('inactive');
+    productDetails.classList.add('inactive');
 };
 function showdesktopMenu() {
     producDetail.classList.add('inactive');
@@ -229,19 +227,6 @@ function showCards() {
         // figure.appendChild(input);
     };
 };
-// <div id="product-details-close" class="product-details-close">
-// <img src="./public/icons/icon_close.png" src="" alt="close">
-// </div>
-// <img id="product-details-rigth-aside-img" alt="bike">
-// <div class="products-info">
-// <p id="product-details-rigth-aside-price"></p>
-// <p id="product-details-rigth-aside-name"></p>
-// <p id="product-details-rigth-aside-description"></p>
-// <button class="primary-button add-to-cart-button">
-//   <img src="./public/icons/bt_add_to_cart.svg" alt="add to cart">
-//   Add to cart
-// </button>
-// </div>
 function showProductDetails() {
     if(productDetails.classList.contains('inactive') === productDetails.classList.contains('inactive')) {
         productDetails.classList.remove('inactive');

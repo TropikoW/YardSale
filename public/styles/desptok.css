@@ -287,7 +287,7 @@
     margin-top: 0;
     margin-bottom: 4px;
   }
-  .products-info p:nth-child(2) {
+  .products-info span:nth-child(2) {
     color: var(--very-light-pink);
     font-size: var(--md);
     margin-top: 0;
@@ -314,4 +314,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  /*footer*/
+  footer{
+    text-align: center;
+  }
+  footer p{
+    margin: 50px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--very-light-pink);
   }
