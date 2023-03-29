@@ -14,6 +14,7 @@ const productDetailsClose = document.querySelector('#product-details-close');
 const containerListProduct = document.querySelector('#container-list-product');
 const totalValue = document.querySelector('#total-value');
 const productCounter = document.querySelector('#product-counter');
+const containerAsideAdd = document.querySelector('#container-aside-add');
 
 let productList = [];
 let allProduct= [];
@@ -38,7 +39,10 @@ navbarShoppingCar.addEventListener('click',showAside);
 navbarEmail.addEventListener('click',showdesktopMenu);
 menu.addEventListener('click',showBurguer);
 productDetailsClose.addEventListener('click',closeProductDetails);
-cardsContainer.addEventListener('click', e=>{
+cardsContainer.addEventListener('click',addToBag);
+containerAsideAdd.addEventListener('click',addToBagTwo);
+
+function addToBag(e) {
     if(e.target.classList.contains('btn-add-cart')) {
         const productElement = e.target.parentElement.parentElement.parentElement.parentElement
 
@@ -69,9 +73,79 @@ cardsContainer.addEventListener('click', e=>{
 
         // console.log(ifProduct);
         showHTML();
-        console.log('escuchando');
+        console.log('sigue escuchando');
     };
-});
+};
+function addToBagTwo(e) {
+    if(e.target.classList.contains('primary-button')) {
+        const productElement = e.target.parentElement;
+        const objetProduct = {
+            quantity : 1,
+            title : productElement.querySelector('p').textContent,
+            price : productElement.querySelector('p').textContent,
+            image : productElement.querySelector('img').textContent,
+        };
+         // allProduct = [...allProduct,objetProduct];
+         console.log(productElement);
+
+         const ifProduct = allProduct.some(product => product.title == objetProduct.title);
+
+         if(ifProduct) {
+             const validation = allProduct.map(product => {
+                 if(product.title === objetProduct.title) {
+                     product.quantity++;
+                     return product;
+                 } else {
+                     return product;
+                 };
+             });
+             allProduct = [...validation];
+         } else {
+             allProduct = [...allProduct,objetProduct];
+         }
+
+         // console.log(ifProduct);
+        showHTML();
+        console.log('sigue escuchando');
+    };
+};
+// function addToBagTwo(e) {
+//     console.log(e.target.parentElement)
+// }
+// cardsContainer.addEventListener('click', e=>{
+//     if(e.target.classList.contains('btn-add-cart')) {
+//         const productElement = e.target.parentElement.parentElement.parentElement.parentElement
+
+//         const objetProduct = {
+//             quantity : 1,
+//             title : productElement.querySelector('h3').textContent,
+//             price : productElement.querySelector('p').textContent,
+//             image : productElement.querySelector('img').textContent,
+//         };
+//         // allProduct = [...allProduct,objetProduct];
+//         console.log(objetProduct,allProduct,productElement.querySelector('img'));
+
+//         const ifProduct = allProduct.some(product => product.title == objetProduct.title);
+
+//         if(ifProduct) {
+//             const validation = allProduct.map(product => {
+//                 if(product.title === objetProduct.title) {
+//                     product.quantity++;
+//                     return product;
+//                 } else {
+//                     return product;
+//                 };
+//             });
+//             allProduct = [...validation];
+//         } else {
+//             allProduct = [...allProduct,objetProduct];
+//         }
+
+//         // console.log(ifProduct);
+//         showHTML();
+//         console.log('escuchando');
+//     };
+// });
 containerListProduct.addEventListener('click', (e) => {
     if(e.target.classList.contains('icon-close')){
         const product = e.target.parentElement;
